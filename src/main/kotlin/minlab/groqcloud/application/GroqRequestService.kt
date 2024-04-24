@@ -24,7 +24,9 @@ class GroqRequestService(
                     "content" to message
                 )
             ),
-            "model" to GroqSuppliedModel.LLAMA3_70B.id
+            "model" to GroqSuppliedModel.LLAMA3_70B.id,
+            "temperature" to 0.1,
+            "top_p" to 0.7
         )
 
         return postRequest(groqRequestUrl, request).body<String>()
