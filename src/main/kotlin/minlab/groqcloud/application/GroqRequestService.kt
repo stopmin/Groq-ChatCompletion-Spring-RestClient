@@ -1,5 +1,6 @@
 package minlab.groqcloud.application
 
+import minlab.groqcloud.domain.ChatCompletion
 import minlab.groqcloud.domain.GroqSuppliedModel
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -26,10 +27,10 @@ class GroqRequestService(
             ),
             "model" to GroqSuppliedModel.LLAMA3_70B.id,
             "temperature" to 0.1,
-            "top_p" to 0.7
+            "top_p" to 0.7,
         )
 
-        return postRequest(groqRequestUrl, request).body<String>()
+        return postRequest(groqRequestUrl, request).body<ChatCompletion>()?.choices?.firstOrNull()?.message?.content
     }
 
     fun postRequest(uri: String, requestDTO: Any): RestClient.ResponseSpec {
